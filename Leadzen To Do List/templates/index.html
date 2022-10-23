@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+     <!-- Bootstrap CSS --> <!-----------------https://cdnjs.com---->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     
+
+  </head>
+  <body>
+  
+  <script>
+  
+  function form_data(method,task){
+	form=document.getElementById('custom_form');
+	form.method="POST";
+	form.action='/'+method+'/'+task;
+	form.submit();
+  }
+  
+  </script>
+ 
+ <div class="container m-2">
+		  <form method="POST" action='/create/novalue'>
+		  <div class="container mx-5">
+		  <input type="text" placeholder="Name of the task" name="task_name" id="task_name" />
+		  <input class="btn btn-primary btn-small" type="submit" value="Create Task">
+		  </div>
+		  </form>
+		  <br>
+		  <div class="container">
+		  <h3 class="text-center">Listing all the tasks</h3>
+		  <br><br>
+			{% for task in context["all_task"] %}
+			<div class="row">
+			<div class="col-4">
+			<p>{{task}}</p>
+			</div>
+			<div class="col-4">
+			<input class="btn btn-primary btn-small" type='button' value="delete" name={{task}} onclick="form_data(this.value,this.name)">
+			</div>
+			<div class="col-4">
+			<input class="btn btn-primary btn-small" type='button' value="complete" name={{task}} onclick="form_data(this.value,this.name)">
+			</div>
+			</div>
+			{% endfor %}
+		  </div>
+		  <br>
+		  
+			<form method="POST" id="custom_form" action="">
+			</form>
+			
+			
+			<br><br><br><br>
+			
+		<div class="row">
+		
+		<div class="col-3">
+		<p class="text-center"><b>All task</b></p>
+		{% for task in context["all_task"] %}
+		<p class="form-control">{{task}}</p>
+		{% endfor %}
+		</div>
+		
+		<div class="col-3">
+		<p class="text-center"><b>Complete task</b></p>
+		{% for task in context["complete_list"] %}
+		<p class="form-control">{{task}}</p>
+		{% endfor %}
+		</div>
+		
+		
+		<div class="col-3">
+		<p class="text-center"><b>Pending task</b></p>
+		{% for task in context["pending_list"] %}
+		<p class="form-control">{{task}}</p>
+		{% endfor %}
+		</div>
+		
+		
+		
+		
+		</div>
+		  
+ </div>
